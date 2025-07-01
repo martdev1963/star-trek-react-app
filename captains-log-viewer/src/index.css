@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #000033;
+  color: #f8f8f8; /* 98% white */
+}
+
+/* Terminal-like scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000022;
+}
+::-webkit-scrollbar-thumb {
+  background: #224466;
+}
