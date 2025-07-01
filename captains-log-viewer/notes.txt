@@ -360,3 +360,249 @@ Responsive Design	minHeight: 100vh	Full-screen layout.
 This documentation covers every line of code in the React version of the Captain's Log Viewer. Let me know 
 if you'd like additional details! 🚀
 
+--------------------------------------------------------------------------------------------------------------------------
+
+Vercel Depolyment:
+
+To deploy your Captain's Log Viewer React app to Vercel, here's a complete step-by-step guide, including whether you need 
+to set up anything on the Vercel website:
+Option 1: Deploy Using Vercel CLI (Quickest)
+1. Install Vercel CLI (if not done already)
+bash
+
+npm install -g vercel  # Installs globally
+
+2. Log In to Vercel
+bash
+
+vercel login
+
+    Opens a browser window to authenticate your Vercel account.
+
+    If you don’t have an account, sign up (free tier is sufficient).
+
+3. Deploy
+
+From your project directory (captains-log-viewer):
+bash
+
+vercel
+
+    Follow the prompts:
+
+        “Link to existing project?” → No (for first-time deployment).
+
+        Project name: captains-log-viewer (or leave default).
+
+        Framework: Choose React (Vercel usually auto-detects this).
+
+        Build command: npm run build (default for React).
+
+        Output directory: build (default for Create React App).
+
+        Deploy immediately? Yes (y).
+
+4. Deployment Output
+
+    Vercel will:
+
+        Build your app (npm run build).
+
+        Upload files.
+
+        Assign a live URL (e.g., https://captains-log-viewer.vercel.app).
+
+Option 2: Deploy via Vercel Website (GUI)
+
+If you prefer a manual approach:
+
+    Push your code to GitHub/GitLab/Bitbucket.
+
+    Go to Vercel Dashboard.
+
+    Import your repository:
+
+        Select your Git provider.
+
+        Choose the captains-log-viewer repo.
+
+    Configure settings:
+
+        Framework: React.
+
+        Build command: npm run build.
+
+        Output directory: build.
+
+    Click Deploy.
+
+Key Notes
+
+    No additional setup required if:
+
+        Your app has no environment variables (e.g., API keys).
+
+        You’re using default React settings.
+
+    You might need to configure if:
+
+        Your app uses a custom server or environment variables.
+
+        You need a custom domain (free *.vercel.app is provided by default).
+
+    After deployment:
+
+        Vercel auto-deploys on new Git pushes (if linked to a repo).
+
+        You can manage deployments at Vercel Dashboard.
+
+Troubleshooting
+Issue	Fix
+vercel command not found	Reinstall CLI (npm install -g vercel).
+Build fails	Check npm run build works locally first.
+Missing styles	Ensure assets are in public/ and referenced correctly.
+Which Method to Use?
+
+    For quick testing: Use vercel CLI (no Git needed).
+
+    For production: Link a Git repo for auto-deploys.
+
+Your app will be live in under 2 minutes! 🚀 Let me know if you hit any snags.
+
+---------------------------------------------------------------------------------------------------------------------
+
+SHELL OUTPUT:
+
+$ npm install -g vercel
+npm warn deprecated path-match@1.2.4: This package is archived and no longer maintained. For support, 
+visit https://github.com/expressjs/express/discussions
+
+added 235 packages in 27s
+
+26 packages are looking for funding
+  run `npm fund` for details
+
+
+$ vercel --ver
+Vercel CLI 44.2.8
+> NOTE: The Vercel CLI now collects telemetry regarding usage of the CLI.
+> This information is used to shape the CLI roadmap and prioritize features.
+> You can learn more, including how to opt-out if you'd not like to participate in this program, by visiting the following URL:
+> https://vercel.com/docs/cli/about-telemetry
+Error: unknown or unexpected option: --ver
+
+
+SHELL OUTPUT:
+
+Martin@DESKTOP-HTLQ9GM /cygdrive/c/Users/Martin/Documents/Coding/star-trek-react-app/captains-log-viewer
+$ vercel
+Vercel CLI 44.2.8
+? Set up and deploy “~\Documents\Coding\star-trek-react-app\captains-log-viewer”? yes
+? Which scope should contain your project? martdev1963's projects
+? Link to existing project? no
+? What’s your project’s name? captains-log-viewer
+? In which directory is your code located? ./
+Local settings detected in vercel.json:
+Auto-detected Project Settings (Create React App):
+- Build Command: react-scripts build
+- Development Command: react-scripts start
+- Install Command: `yarn install`, `pnpm install`, `npm install`, or `bun install`
+- Output Directory: build
+? Want to modify these settings? no
+🔗  Linked to martdev1963s-projects/captains-log-viewer (created .vercel and added it to .gitignore)
+🔍  Inspect: https://vercel.com/martdev1963s-projects/captains-log-viewer/4mxd7TE5hAum3x95bzagsB584CoL [2s]
+✅  Production: https://captains-log-viewer-83y7xc759-martdev1963s-projects.vercel.app [2s]
+2025-07-01T19:18:06.080Z  Running build in Washington, D.C., USA (East) – iad1
+2025-07-01T19:18:06.080Z  Build machine configuration: 2 cores, 8 GB
+2025-07-01T19:18:06.103Z  Retrieving list of deployment files...
+2025-07-01T19:18:06.258Z  Previous build caches not available
+2025-07-01T19:18:06.467Z  Downloading 18 deployment files...
+2025-07-01T19:18:06.858Z  Running "vercel build"
+2025-07-01T19:18:07.409Z  Vercel CLI 43.3.0
+2025-07-01T19:18:08.370Z  Installing dependencies...
+2025-07-01T19:18:12.027Z  npm warn deprecated w3c-hr-time@1.0.2: Use your platform's native performance.now() and performance.timeOrigin.
+2025-07-01T19:18:12.568Z  npm warn deprecated stable@0.1.8: Modern JS already guarantees Array#sort() is a stable sort, so this library is deprecated. See the compatibility
+ table on MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#browser_compatibility
+2025-07-01T19:18:12.570Z  npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+2025-07-01T19:18:12.704Z  npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+2025-07-01T19:18:12.740Z  npm warn deprecated workbox-cacheable-response@6.6.0: workbox-background-sync@6.6.0
+2025-07-01T19:18:12.812Z  npm warn deprecated rollup-plugin-terser@7.0.2: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-terser
+2025-07-01T19:18:13.092Z  npm warn deprecated q@1.5.1: You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelin
+gs about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be exce
+llent to each other.
+2025-07-01T19:18:13.093Z  npm warn deprecated
+2025-07-01T19:18:13.093Z  npm warn deprecated (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
+2025-07-01T19:18:13.395Z  npm warn deprecated workbox-google-analytics@6.6.0: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3
+ it should be ok, but the package is not longer being maintained
+2025-07-01T19:18:14.345Z  npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and test
+ed way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2025-07-01T19:18:14.604Z  npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-07-01T19:18:15.076Z  npm warn deprecated domexception@2.0.1: Use your platform's native DOMException instead
+2025-07-01T19:18:15.420Z  npm warn deprecated svgo@1.3.2: This SVGO version is no longer supported. Upgrade to v2.x.x.
+2025-07-01T19:18:15.800Z  npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+2025-07-01T19:18:16.456Z  npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+2025-07-01T19:18:16.500Z  npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+2025-07-01T19:18:17.149Z  npm warn deprecated @babel/plugin-proposal-optional-chaining@7.21.0: This proposal has been merged to the ECMAScript standard and thus this plugin
+ is no longer maintained. Please use @babel/plugin-transform-optional-chaining instead.
+2025-07-01T19:18:17.149Z  npm warn deprecated @babel/plugin-proposal-private-methods@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin i
+s no longer maintained. Please use @babel/plugin-transform-private-methods instead.
+2025-07-01T19:18:17.149Z  npm warn deprecated @babel/plugin-proposal-nullish-coalescing-operator@7.18.6: This proposal has been merged to the ECMAScript standard and thus t
+his plugin is no longer maintained. Please use @babel/plugin-transform-nullish-coalescing-operator instead.
+2025-07-01T19:18:17.175Z  npm warn deprecated @babel/plugin-proposal-class-properties@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin
+is no longer maintained. Please use @babel/plugin-transform-class-properties instead.
+2025-07-01T19:18:17.175Z  npm warn deprecated @babel/plugin-proposal-numeric-separator@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin
+ is no longer maintained. Please use @babel/plugin-transform-numeric-separator instead.
+2025-07-01T19:18:18.268Z  npm warn deprecated @babel/plugin-proposal-private-property-in-object@7.21.11: This proposal has been merged to the ECMAScript standard and thus t
+his plugin is no longer maintained. Please use @babel/plugin-transform-private-property-in-object instead.
+2025-07-01T19:18:20.197Z  npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+2025-07-01T19:18:22.917Z
+2025-07-01T19:18:22.918Z  added 1376 packages in 14s
+2025-07-01T19:18:22.918Z
+2025-07-01T19:18:22.924Z  276 packages are looking for funding
+2025-07-01T19:18:22.925Z    run `npm fund` for details
+2025-07-01T19:18:22.926Z  npm notice
+2025-07-01T19:18:22.926Z  npm notice New major version of npm available! 10.9.2 -> 11.4.2
+2025-07-01T19:18:22.926Z  npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.2
+2025-07-01T19:18:22.927Z  npm notice To update run: npm install -g npm@11.4.2
+2025-07-01T19:18:22.927Z  npm notice
+2025-07-01T19:18:22.990Z  Running "npm run build"
+2025-07-01T19:18:23.106Z
+2025-07-01T19:18:23.107Z  > captains-log-viewer@0.1.0 build
+2025-07-01T19:18:23.107Z  > react-scripts build
+2025-07-01T19:18:23.107Z
+2025-07-01T19:18:24.066Z  Creating an optimized production build...
+2025-07-01T19:18:42.093Z  Compiled successfully.
+2025-07-01T19:18:42.093Z
+2025-07-01T19:18:42.093Z  File sizes after gzip:
+2025-07-01T19:18:42.093Z
+2025-07-01T19:18:42.107Z    99.42 kB  build/static/js/main.12c9c6dd.js
+2025-07-01T19:18:42.107Z    1.77 kB   build/static/js/453.b45ffd36.chunk.js
+2025-07-01T19:18:42.108Z    215 B     build/static/css/main.a8dfdeda.css
+2025-07-01T19:18:42.108Z
+2025-07-01T19:18:42.108Z  The project was built assuming it is hosted at /.
+2025-07-01T19:18:42.108Z  You can control this with the homepage field in your package.json.
+2025-07-01T19:18:42.109Z
+2025-07-01T19:18:42.109Z  The build folder is ready to be deployed.
+2025-07-01T19:18:42.109Z  You may serve it with a static server:
+2025-07-01T19:18:42.109Z
+2025-07-01T19:18:42.109Z    npm install -g serve
+2025-07-01T19:18:42.110Z    serve -s build
+2025-07-01T19:18:42.110Z
+2025-07-01T19:18:42.110Z  Find out more about deployment here:
+2025-07-01T19:18:42.110Z
+2025-07-01T19:18:42.110Z    https://cra.link/deployment
+2025-07-01T19:18:42.110Z
+2025-07-01T19:18:42.612Z  Build Completed in /vercel/output [34s]
+2025-07-01T19:18:42.636Z  Deploying outputs...
+2025-07-01T19:18:44.003Z
+2025-07-01T19:18:44.165Z  Deployment completed
+📝  Deployed to production. Run `vercel --prod` to overwrite later (https://vercel.link/2F).
+💡  To change the domain or build command, go to https://vercel.com/martdev1963s-projects/captains-log-viewer/settings
+
+Martin@DESKTOP-HTLQ9GM /cygdrive/c/Users/Martin/Documents/Coding/star-trek-react-app/captains-log-viewer
+$
+
+LIVE APP HERE:
+https://captains-log-viewer-83y7xc759-martdev1963s-projects.vercel.app/
+
+
