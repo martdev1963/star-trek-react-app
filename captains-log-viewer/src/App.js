@@ -1,8 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Box, Button, Card, CardContent, Typography } from '@mui/material';
 import { styled } from '@mui/system';
+import useSound from 'use-sound';
 
-// Star Trek-themed logs (same as original)
+/**
+ * ----------------------------------------------------------------------------------------------------------------
+ *                                          ViSUAL and AUDIO ASSETS: 
+ * 
+ *                                                    START
+ * 
+ * software_ver: 2.01.00 (denoting included sound functionality)
+ * importing 16 sounds from path: public/sounds [sound files in alphabetical order]
+ * Sound variables declaration...
+ * ----------------------------------------------------------------------------------------------------------------
+ */
+
+// an array of template literals...
 const logs = [
   `Captain's Log, Stardate 5623.4
   Acting Captain Spock Recording
@@ -120,6 +133,13 @@ End log.🖖`
 
 ];
 
+/**
+ * ----------------------------------------------------------------------------------------------------------------
+ *                                          ViSUAL and AUDIO ASSETS: 
+ *                                                    END
+ * ----------------------------------------------------------------------------------------------------------------
+ */
+
 // Star Trek styling
 const StyledApp = styled(Box)({
   background: '#000033',
@@ -135,14 +155,86 @@ const LogDisplay = styled(Card)({
   margin: '20px 0',
 });
 
+// Functional Component...
 function App() {
   const [currentLog, setCurrentLog] = useState(logs[0]);
+  const [isMuted, setIsMuted] = useState(false);
 
+  // sound array... (length == 16) 
+  const soundPaths = [
+    '/sounds/blippy.mp3',
+    '/sounds/bleep_1.mp3',
+    '/sounds/comms-chirp.mp3',
+    '/sounds/auto-destruct.mp3',
+    '/sounds/kirk_intro_dialog.mp3',
+    '/sounds/klingon-vessel-msg.mp3',
+    '/sounds/life-forms-skit.mp3',
+    '/sounds/spock-vulcan-mind-probe.mp3',
+    '/sounds/spock-incoming-msg.mp3',
+    '/sounds/spock-greetings.mp3',
+    '/sounds/standing-by.mp3',
+    '/sounds/star-fleet-msg.mp3',
+    '/sounds/star-trek-theme.mp3',
+    '/sounds/transfer-complete.mp3',
+    '/sounds/treky-whistle.mp3',
+    '/sounds/tricorder-sound.mp3'
+  ];
+  
+  // Sound Hooks...
+  const [playBlippy] = useSound(soundPaths[0], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playBleep] = useSound(soundPaths[1], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playChirp] = useSound(soundPaths[2], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playDestruct] = useSound(soundPaths[3], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playKirkDialog] = useSound(soundPaths[4], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playKlingonVessel] = useSound(soundPaths[5], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playLifeFormsSkit] = useSound(soundPaths[6], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playSpockVulcanMindProbe] = useSound(soundPaths[7], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playSpockIncomingMsg] = useSound(soundPaths[8], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playSpockGreetings] = useSound(soundPaths[9], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playStandingBy] = useSound(soundPaths[10], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playStarFleetMsg] = useSound(soundPaths[11], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playStarTrekTheme] = useSound(soundPaths[12], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playTransferComplete] = useSound(soundPaths[13], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playTrekyWhistle] = useSound(soundPaths[14], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playTricorderSound] = useSound(soundPaths[15], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+
+  // array of the 16 sound hooks above...
+  const soundPlayers = useMemo(() => [
+    playBlippy, 
+    playBleep, 
+    playChirp, 
+    playDestruct, 
+    playKirkDialog, 
+    playKlingonVessel,
+    playLifeFormsSkit,
+    playSpockVulcanMindProbe,
+    playSpockIncomingMsg,
+    playSpockGreetings,
+    playStandingBy,
+    playStarFleetMsg,
+    playStarTrekTheme,
+    playTransferComplete,
+    playTrekyWhistle,
+    playTricorderSound
+  ]);
+
+  const playRandomSound = () => {
+    const randomIndex = Math.floor(Math.random() * soundPlayers.length);
+    soundPlayers[randomIndex](); // play it!
+  };
+  
+  // Start ambience when component mounts
+  React.useEffect(() => {
+    if (!isMuted) playStarTrekTheme(); // or playBlippy()
+  }, []);
+  
   const showRandomLog = () => {
+    playRandomSound();
+    //playCommsChirp(); // play sound on button click...
     const randomLog = logs[Math.floor(Math.random() * logs.length)];
     setCurrentLog(randomLog);
   };
-
+    
   return (
     <StyledApp>
       <Typography variant="h4" align="center" gutterBottom>
@@ -154,6 +246,7 @@ function App() {
       
       <LogDisplay>
         <CardContent>
+        <Typography variant="subtitle1" align="center">Current Log Entry</Typography>
           <Typography style={{ 
             whiteSpace: 'pre-line',
             color: '#fff'
@@ -173,8 +266,22 @@ function App() {
       >
         Click for new Log Entry
       </Button>
+      <Typography align="center" sx={{ mt: 1 }}>
+          Sound: {isMuted ? 'Muted 🔇' : 'Active 🔊'}
+      </Typography>
+      <Button 
+        onClick={() => setIsMuted(!isMuted)}
+        style={{
+          position: 'fixed',
+          bottom: 20,
+          right: 20,
+          background: '#112244',
+          color: '#fff'
+        }}
+      >
+        {isMuted ? '🔇' : '🔊'}
+      </Button>  
     </StyledApp>
   );
 }
-
-export default App;
+export default App
