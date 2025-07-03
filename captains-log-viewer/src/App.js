@@ -1,7 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState} from 'react';
 import { Box, Button, Card, CardContent, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import useSound from 'use-sound';
+import { useRef } from 'react';
+
 
 /**
  * ----------------------------------------------------------------------------------------------------------------
@@ -133,13 +135,6 @@ End log.🖖`
 
 ];
 
-/**
- * ----------------------------------------------------------------------------------------------------------------
- *                                          ViSUAL and AUDIO ASSETS: 
- *                                                    END
- * ----------------------------------------------------------------------------------------------------------------
- */
-
 // Star Trek styling
 const StyledApp = styled(Box)({
   background: '#000033',
@@ -159,6 +154,10 @@ const LogDisplay = styled(Card)({
 function App() {
   const [currentLog, setCurrentLog] = useState(logs[0]);
   const [isMuted, setIsMuted] = useState(false);
+
+  // Track the currently playing sound
+  const currentSoundRef = useRef(null);
+
 
   // sound array... (length == 16) 
   const soundPaths = [
@@ -181,7 +180,7 @@ function App() {
   ];
   
   // Sound Hooks...
-  const [playBlippy] = useSound(soundPaths[0], { volume: 0.3, preload: true, soundEnabled: !isMuted });
+  const [playBlippy, { stop: stopBlippy }] = useSound(soundPaths[0], { volume: 0.3, preload: true, soundEnabled: !isMuted });
   const [playBleep] = useSound(soundPaths[1], { volume: 0.3, preload: true, soundEnabled: !isMuted });
   const [playChirp] = useSound(soundPaths[2], { volume: 0.3, preload: true, soundEnabled: !isMuted });
   const [playDestruct] = useSound(soundPaths[3], { volume: 0.3, preload: true, soundEnabled: !isMuted });
@@ -199,7 +198,7 @@ function App() {
   const [playTricorderSound] = useSound(soundPaths[15], { volume: 0.3, preload: true, soundEnabled: !isMuted });
 
   // array of the 16 sound hooks above...
-  const soundPlayers = useMemo(() => [
+  const soundPlayers = [
     playBlippy, 
     playBleep, 
     playChirp, 
@@ -216,25 +215,86 @@ function App() {
     playTransferComplete,
     playTrekyWhistle,
     playTricorderSound
-  ]);
+  ];
 
+/**
+ * ----------------------------------------------------------------------------------------------------------------
+ *                                          ViSUAL and AUDIO ASSETS: 
+ *                                                    END
+ * ----------------------------------------------------------------------------------------------------------------
+ */
+
+
+const [lastStop, setLastStop] = useState(null);
+
+const playRandomSound = () => {
+  if (lastStop) lastStop();
+
+  const randomIndex = Math.floor(Math.random() * soundPlayers.length);
+  const playFn = soundPlayers[randomIndex];
+
+  if (typeof playFn === 'function') {
+    const stopFn = playFn(); // useSound returns play => which returns stop()
+    setLastStop(() => stopFn);
+  }
+};
+
+
+/*
   const playRandomSound = () => {
+    if (currentSoundRef.current) {
+      currentSoundRef.current.stop(); // Stop previous sound
+    }
+
     const randomIndex = Math.floor(Math.random() * soundPlayers.length);
-    soundPlayers[randomIndex](); // play it!
+    const playFn = soundPlayers[randomIndex](); // play it!
+
+    console.log("Chosen sound index:", randomIndex);
+    console.log("Function type:", typeof playFn);
+
+    if (typeof playFn === 'function') {
+      playFn();
+    } else {
+      console.warn("Sound function is not a function:", playFn);
+    }
+
+    const sound = playFn(); // this returns a sound instance...
+    currentSoundRef.current = sound;
   };
+*/
   
+  const toggleMute = () => {
+    setIsMuted(prev => {
+      const newState = !prev;
+      if (newState && currentSoundRef.current) {
+        currentSoundRef.current.stop();
+      }
+      return newState;
+    });
+  };
+
+
   // Start ambience when component mounts
   React.useEffect(() => {
-    if (!isMuted) playStarTrekTheme(); // or playBlippy()
+    if (!isMuted) {
+      const sound = playStarTrekTheme();
+      currentSoundRef.current = sound;
+    }
+    
+    return () => {
+      if (currentSoundRef.current) {
+        currentSoundRef.current.stop();
+      }
+    };
   }, []);
+  
   
   const showRandomLog = () => {
     playRandomSound();
-    //playCommsChirp(); // play sound on button click...
     const randomLog = logs[Math.floor(Math.random() * logs.length)];
     setCurrentLog(randomLog);
   };
-    
+  
   return (
     <StyledApp>
       <Typography variant="h4" align="center" gutterBottom>
@@ -270,7 +330,7 @@ function App() {
           Sound: {isMuted ? 'Muted 🔇' : 'Active 🔊'}
       </Typography>
       <Button 
-        onClick={() => setIsMuted(!isMuted)}
+        onClick={toggleMute}
         style={{
           position: 'fixed',
           bottom: 20,
