@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent url('/captains-log-viewer/public/images/stars-bg.jpg') repeat;
+  animation: starfield 200s linear infinite;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+@keyframes starfield {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 5000px;
+  }
+}
